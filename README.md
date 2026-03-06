@@ -22,19 +22,19 @@ The goal is to identify patterns and compare climate metrics across different re
 
 ## Dashboard Overview
 
-![Dashboard](climate-data-analysis-dashboard/images/dashboard.png)
+![Dashboard](images/dashboard.png)
 
 ---
 
 ## Dataset Example
 
-![Dataset](climate-data-analysis-dashboard/images/dataset.png)
+![Dataset](images/dataset.png)
 
 ---
 
 ## Visualization Example
 
-![Chart](climate-data-analysis-dashboard/images/chart.png)
+![Chart](images/chart.png)
 
 ---
 
