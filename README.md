@@ -6,7 +6,7 @@
 ![Period](https://img.shields.io/badge/Period-2025-blue)
 
 Un tablero de Power BI que convierte un año de lecturas meteorológicas agrícolas
-de **7 departamentos de El Salvador** en una vista interactiva de temperatura,
+en departamentos de El Salvador en una vista interactiva de temperatura,
 humedad, lluvia y condiciones de siembra.
 
 El objetivo no era solo graficar números: los datos están modelados para una
@@ -27,7 +27,7 @@ construido alrededor de esa pregunta.
 - [Modelo de datos y medidas](#modelo-de-datos-y-medidas)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Reproducir el análisis](#reproducir-el-análisis)
-- [Decisiones de diseño y limitaciones](#decisiones-de-diseño-y-limitaciones)
+- [Decisiones de diseño](#decisiones-de-diseño)
 - [Próximos pasos](#próximos-pasos)
 
 ---
@@ -81,7 +81,7 @@ Extremos encontrados en el dataset:
 | ------- | ---- | ----------- |
 | `Fecha` | fecha | Fecha de la lectura (`2025-01-01` → `2025-12-31`) |
 | `Hora` | int | Hora de la lectura: `0`, `6`, `12`, `18` |
-| `Departamento` | texto | Uno de los 7 departamentos |
+| `Departamento` | texto | Departamento donde se tomó la lectura |
 | `Temperatura_C` | float | Temperatura del aire en °C (18,0 – 36,0) |
 | `Humedad_%` | float | Humedad relativa, 0–100 (50 – 100) |
 | `Lluvia_mm` | float | Lluvia en mm (0,0 – 48,6) |
@@ -123,9 +123,7 @@ AVERAGE('datos_meteorologicos_agricolas_sv_simulados'[Temperatura_C]) / 100
 ```
 
 La división por 100 es un **truco de formato**: lleva valores de 0–100 a 0–1 para
-que el formato de porcentaje de Power BI los muestre bien. Ver
-[limitaciones](#decisiones-de-diseño-y-limitaciones) para entender por qué no es
-lo ideal.
+que el formato de porcentaje de Power BI los muestre bien.
 
 ---
 
@@ -189,9 +187,7 @@ script.
 
 ---
 
-## Decisiones de diseño y limitaciones
-
-**Decisiones**
+## Decisiones de diseño
 
 - Se comparan **promedios por lectura** en lugar de totales de lluvia, porque los
   departamentos tienen frecuencias de muestreo muy distintas.
@@ -199,19 +195,6 @@ script.
   agrega complejidad sin beneficio analítico.
 - Se agregó `scripts/summarize.py` para que las afirmaciones del README se puedan
   verificar fuera de Power BI.
-
-**Limitaciones conocidas**
-
-- El **gráfico de columnas de humedad por mes es plano**: como `MAX(Humedad_%)`
-  suele ser 100, dividir por 100 deja todas las barras en 100 %. La medida
-  debería usar `DIVIDE(AVG(...), 100)` o el modelo debería guardar la humedad en
-  escala 0–1 con formato de porcentaje.
-- Dividir la **temperatura** por 100 para obtener formato de porcentaje corrompe
-  la magnitud; corresponde una cadena de formato personalizada.
-- Con un solo año de datos, los "patrones estacionales" son un único ciclo: no se
-  puede inferir ninguna tendencia.
-- La recomendación de siembra viene de reglas en los datos de origen, no de un
-  modelo agronómico independiente.
 
 ---
 
