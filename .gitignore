@@ -1,0 +1,17 @@
+# Power BI temporary / lock files
+~$*.pbix
+*.pbix.bak
+.pbi/
+*.pbids
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
